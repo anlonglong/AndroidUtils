@@ -5,6 +5,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
+import com.example.networkmonitor.ConnectivityManagerNetworkMonitor
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -34,11 +37,15 @@ fun AndroidUtilsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Comp
     } else {
         LightColorPalette
     }
-
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    val ctx = LocalContext.current
+    CompositionLocalProvider(
+        LocalNetworkMonitor provides ConnectivityManagerNetworkMonitor.getInstance(ctx)
+    ) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }

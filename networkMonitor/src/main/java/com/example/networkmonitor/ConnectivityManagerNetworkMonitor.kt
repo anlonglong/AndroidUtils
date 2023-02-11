@@ -30,9 +30,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.conflate
 
-class ConnectivityManagerNetworkMonitor  constructor(
+public class ConnectivityManagerNetworkMonitor  constructor(
    private val context: Context
 ) : NetworkMonitor {
+
+    companion object : SingletonHolder<NetworkMonitor, Context>(::ConnectivityManagerNetworkMonitor)
 
     override val isConnected: Boolean
         get()  {
